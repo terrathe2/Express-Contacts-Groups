@@ -40,7 +40,6 @@
 		<form name="inputContact" action="/contacts" method="post">
 			<label class="label">Group</label><br />
 			<select class="input" name="groupID" required>
-				<option value"">Choose Groups</option>
 				<% for (let i = 0; i < dataGroups.length; i++) {%>
 				<option value="<%=dataGroups[i].id%>"><%=dataGroups[i].id%> <%=dataGroups[i].name_of_group%></option>
 				<%}%>
