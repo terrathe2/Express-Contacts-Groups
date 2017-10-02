@@ -1,0 +1,25 @@
+{
+  "name": "express-contacts-groups",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/terrathe2/Express-Contacts-Groups.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/terrathe2/Express-Contacts-Groups/issues"
+  },
+  "homepage": "https://github.com/terrathe2/Express-Contacts-Groups#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "ejs": "^2.5.7",
+    "express": "^4.16.1",
+    "sqlite3": "^3.1.13"
+  }
+}

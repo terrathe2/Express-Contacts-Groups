@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Release 1 Groups</title>
+		<style>
+			*{
+				margin:auto;
+				padding:auto;
+			}
+		</style>
+	</head>
+	<body>
+		<a href="/">BACK</a>
+		<table>
+			<thead>
+				<tr>
+					<td>ID</td>
+					<td>Name of Groups</td>
+					<td>Actions</td>
+				</tr>
+			</thead>
+			<tbody>
+				<% for (let i = 0; i < dataGroups.length; i++){%>
+				<tr>
+					<td><%= dataGroups[i].id%></td>
+					<td><%= dataGroups[i].name_of_group%></td>
+					<td><a href="/groups/edit/<%= dataGroups[i].id%>">Edit</a> | <a href="/groups/delete/<%= dataGroups[i].id%>">Delete</a></td>
+				</tr>
+				<%}%>
+			</tbody>
+		</table><br /><hr />
+		<form name="inputGroup" action="/groups" method="post">
+			<label class="label">Name of Groups</label><br />
+			<input class="input" type="text" name="name_of_group" /><br />
+			<input type="submit" value="Submit" />
+		</form>		
+	</body>
+</html>

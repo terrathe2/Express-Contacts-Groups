@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Release 2 Addresses</title>
+		<style>
+			*{
+				margin:auto;
+				padding:auto;
+			}
+		</style>
+	</head>
+	<body>
+		<a href="/">BACK</a>
+		<table>
+			<thead>
+				<tr>
+					<td>ID</td>
+					<td>Street</td>
+					<td>City</td>
+					<td>Zip Code</td>
+					<td>Actions</td>
+				</tr>
+			</thead>
+			<tbody>
+				<% for (let i = 0; i < dataAddresses.length; i++){%>
+				<tr>
+					<td><%= dataAddresses[i].id%></td>
+					<td><%= dataAddresses[i].street%></td>
+					<td><%= dataAddresses[i].city%></td>
+					<td><%= dataAddresses[i].zipcode%></td>
+					<td><a href="/addresses/edit/<%= dataAddresses[i].id%>">Edit</a> | <a href="/addresses/delete/<%= dataAddresses[i].id%>">Delete</a></td>
+				</tr>
+				<%}%>
+			</tbody>
+		</table><br /><hr />
+		<form name="inputAddresses" action="/addresses" method="post">
+			<label class="label">Street</label><br />
+			<input class="input" type="text" name="street" /><br />
+			<label class="label">City</label><br />
+			<input class="input" type="text" name="city" /><br />
+			<label class="label">Zip Code</label><br />
+			<input class="input" type="number" name="zipcode" /><br />
+			<input type="submit" value="Submit" />
+		</form>		
+	</body>
+</html>

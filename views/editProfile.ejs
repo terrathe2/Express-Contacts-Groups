@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Release 2 Profiles</title>
+		<style>
+			*{
+				margin:auto;
+				padding:auto;
+			}
+		</style>
+	</head>
+	<body>
+		<form name="editProfile" action="/profiles/edit/<%= dataProfile.id%>" method="post">
+			<label class="label">Id Contact</label><br />
+			<select class="label" name="idContact" readonly>
+				<option value="<%= dataProfile.idContact%>" selected><%= dataProfile.idContact%> <%= dataContact.name%></option>
+			</select><br />
+			<label class="label">Username</label><br />
+			<input class="input" type="text" name="username" value="<%= dataProfile.username%>" /><br />
+			<label class="label">Username</label><br />
+			<input class="input" type="text" name="password" value="<%= dataProfile.password%>" /><br />
+			<input type="submit" value="Submit" />
+		</form>
+	</body>
+</html>

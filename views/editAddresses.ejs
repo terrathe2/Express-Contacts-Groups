@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Release 2 Addresses</title>
+		<style>
+			*{
+				margin:auto;
+				padding:auto;
+			}
+		</style>
+	</head>
+	<body>
+		<form name="editAddresses" action="/addresses/edit/<%= dataAddres.id%>" method="post">
+			<label class="label">Street</label><br />
+			<input class="input" type="text" name="street" value="<%= dataAddres.street%>" /><br />
+			<label class="label">City</label><br />
+			<input class="input" type="text" name="city" value="<%= dataAddres.city%>" /><br />
+			<label class="label">Zip Code</label><br />
+			<input class="input" type="number" name="zipcode" value="<%= dataAddres.zipcode%>" /><br />
+			<input type="submit" value="Submit" />
+		</form>		
+	</body>
+</html>

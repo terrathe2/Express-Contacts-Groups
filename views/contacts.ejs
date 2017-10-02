@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Release 1 Contacts</title>
+		<style>
+			*{
+				margin:auto;
+				padding:auto;
+			}
+		</style>
+	</head>
+	<body>
+		<a href="/">BACK</a>
+		<table>
+			<thead>
+				<tr>
+					<td>ID</td>
+					<td>Name</td>
+					<td>Company</td>
+					<td>Telp Number</td>
+					<td>Email</td>
+					<td>Action</td>
+				</tr>
+			</thead>
+			<tbody>
+				<% for (let i = 0; i < dataContacts.length; i++){%>
+				<tr>
+					<td><%= dataContacts[i].id%></td>
+					<td><%= dataContacts[i].name%></td>
+					<td><%= dataContacts[i].company%></td>
+					<td><%= dataContacts[i].telp_number%></td>
+					<td><%= dataContacts[i].email%></td>
+					<td><a href="/contacts/edit/<%= dataContacts[i].id%>">Edit</a> | <a href="/contacts/delete/<%= dataContacts[i].id%>">Delete</a></td>
+				</tr>
+				<%}%>
+			</tbody>
+		</table><br /><hr />
+		<form name="inputContact" action="/contacts" method="post">
+			<label class="label">Name</label><br />
+			<input class="input" type="text" name="name" required /><br />
+			<label class="label">Company</label><br />
+			<input class="input" type="text" name="company" required /><br />
+			<label class="label">Telp Number</label><br />
+			<input class="input" type="number" name="telp_number" required /><br />
+			<label class="label">Email</label><br />
+			<input class="input" type="text" name="email" required /><br />
+			<input type="submit" value="Submit" />
+		</form>
+	</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Release 1 Contacts</title>
+		<style>
+			*{
+				margin:auto;
+				padding:auto;
+			}
+		</style>
+	</head>
+	<body>
+		<form name="editGroup" action="/groups/edit/<%= dataGroup.id%>" method="post">
+			<label class="label">Name of Group</label><br />
+			<input class="input" type="text" name="name_of_group" value="<%= dataGroup.name_of_group%>" /><br />
+			<input type="submit" value="Submit" />
+		</form>		
+	</body>
+</html>

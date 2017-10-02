@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Release 1 Contacts</title>
+		<style>
+			*{
+				margin:auto;
+				padding:auto;
+			}
+		</style>
+	</head>
+	<body>
+		<form name="editContact" action="/contacts/edit/<%= dataContact.id%>" method="post">
+			<label class="label">Name</label><br />
+			<input class="input" type="text" name="name" value="<%= dataContact.name%>" /><br />
+			<label class="label">Company</label><br />
+			<input class="input" type="text" name="company" value="<%= dataContact.company%>" /><br />
+			<label class="label">Telp Number</label><br />
+			<input class="input" type="number" name="telp_number" value="<%= dataContact.telp_number%>" /><br />
+			<label class="label">Email</label><br />
+			<input class="input" type="text" name="email" value="<%= dataContact.email%>" /><br />
+			<input type="submit" value="Submit" />
+		</form>		
+	</body>
+</html>

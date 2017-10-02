@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Release 2 Profiles</title>
+		<style>
+			*{
+				margin:auto;
+				padding:auto;
+			}
+		</style>
+	</head>
+	<body>
+		<a href="/">BACK</a>
+		<table>
+			<thead>
+				<tr>
+					<td>ID</td>
+					<td>ID Contacts</td>
+					<td>Name Contacts</td>
+					<td>Username</td>
+					<td>Password</td>
+					<td>Actions</td>
+				</tr>
+			</thead>
+			<tbody>
+				<% for (let i = 0; i < dataProfiles.length; i++){%>
+				<tr>
+					<td><%= dataProfiles[i].id%></td>
+					<td><%= dataProfiles[i].idContact%></td>
+					<td><%= dataProfiles[i].name%></td>
+					<td><%= dataProfiles[i].username%></td>
+					<td><%= dataProfiles[i].password%></td>
+					<td><a href="/profiles/edit/<%= dataProfiles[i].id%>/<%= dataProfiles[i].idContact%>">Edit</a> | <a href="/profiles/delete/<%= dataProfiles[i].id%>">Delete</a></td>
+				</tr>
+				<%}%>
+			</tbody>
+		</table><br /><hr />
+		<% if (errorLog) {%>
+			<p>Maaf Id Contact Sudah ada</p>
+		<%}%>
+		<form name="inputProfile" action="/profiles" method="post">
+			<label class="label">Id Contact</label><br />
+			<select class="input" name="idContact" required >
+				<option value="">Select Contact ID</option>
+				<% for (let i = 0; i < dataContacts.length; i++) {%>
+				<option value="<%= dataContacts[i].id%>"><%= dataContacts[i].id%> <%= dataContacts[i].name%></option>
+				<%}%>
+			</select><br />
+			<label class="label">Username</label><br />
+			<input class="input" type="text" name="username" required /><br />
+			<label class="label">Password</label><br />
+			<input class="input" type="password" name="password" required /><br />
+			<input type="submit" value="Submit" />
+		</form>
+	</body>
+</html>
