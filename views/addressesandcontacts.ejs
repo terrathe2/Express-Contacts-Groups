@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Release 2 Addresses</title>
+		<style>
+			*{
+				margin:auto;
+				padding:auto;
+			}
+		</style>
+	</head>
+	<body>
+		<h3>Name : <%= dataAddCont.name %></h3><hr />
+		<h3>Address : </h3>
+		<% for (let i = 0; i < dataAdd.length; i++) { %>
+		<h4><%= dataAdd[i].street%></h4>
+		<% } %>
+		<hr />
+		<form name="inputAddresses" action="/addresses" method="post">
+			<input class="label" type="text" name="contactsID" value="<%= dataAddCont.id%>" hidden />
+			<label class="label">Street</label><br />
+			<input class="input" type="text" name="street" required /><br />
+			<label class="label">City</label><br />
+			<input class="input" type="text" name="city" required /><br />
+			<label class="label">Zip Code</label><br />
+			<input class="input" type="number" name="zipcode" /><br />
+			<input type="submit" value="Submit" />
+		</form>
+	</body>
+</html>

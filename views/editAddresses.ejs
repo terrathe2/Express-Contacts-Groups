@@ -9,15 +9,24 @@
 			}
 		</style>
 	</head>
+
+
 	<body>
 		<form name="editAddresses" action="/addresses/edit/<%= dataAddres.id%>" method="post">
+			<label class="label">Contact Name</label><br />
+			<select class="input" name="contactsID" required>
+				<option value"">Choose Contact</option>
+				<% for (let i = 0; i < dataContact.length; i++) {%>
+				<option value="<%=dataContact[i].id%>" <%= (dataAddres.idContact === dataContact[i].id) ? 'selected' : '' %> ><%=dataContact[i].name%></option>
+				<%}%>
+			</select><br />
 			<label class="label">Street</label><br />
-			<input class="input" type="text" name="street" value="<%= dataAddres.street%>" /><br />
+			<input class="input" type="text" name="street" value="<%= dataAddres.street%>" required /><br />
 			<label class="label">City</label><br />
-			<input class="input" type="text" name="city" value="<%= dataAddres.city%>" /><br />
+			<input class="input" type="text" name="city" value="<%= dataAddres.city%>" required /><br />
 			<label class="label">Zip Code</label><br />
 			<input class="input" type="number" name="zipcode" value="<%= dataAddres.zipcode%>" /><br />
 			<input type="submit" value="Submit" />
-		</form>		
+		</form>
 	</body>
 </html>

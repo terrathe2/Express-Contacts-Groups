@@ -15,8 +15,8 @@
 			<thead>
 				<tr>
 					<td>ID</td>
-					<td>ID Contacts</td>
-					<td>Name Contacts</td>
+					<td>Contacts ID</td>
+					<td>Contacts Name</td>
 					<td>Username</td>
 					<td>Password</td>
 					<td>Actions</td>
@@ -36,14 +36,14 @@
 			</tbody>
 		</table><br /><hr />
 		<% if (errorLog) {%>
-			<p>Maaf Id Contact Sudah ada</p>
+			<p>Maaf Id Contact / Username Sudah ada</p>
 		<%}%>
 		<form name="inputProfile" action="/profiles" method="post">
 			<label class="label">Id Contact</label><br />
 			<select class="input" name="idContact" required >
 				<option value="">Select Contact ID</option>
 				<% for (let i = 0; i < dataContacts.length; i++) {%>
-				<option value="<%= dataContacts[i].id%>"><%= dataContacts[i].id%> <%= dataContacts[i].name%></option>
+				<option value="<%= dataContacts[i].id%>"><%= dataContacts[i].name%></option>
 				<%}%>
 			</select><br />
 			<label class="label">Username</label><br />

@@ -15,6 +15,7 @@
 			<thead>
 				<tr>
 					<td>ID</td>
+					<td>Contact Name</td>
 					<td>Street</td>
 					<td>City</td>
 					<td>Zip Code</td>
@@ -25,6 +26,7 @@
 				<% for (let i = 0; i < dataAddresses.length; i++){%>
 				<tr>
 					<td><%= dataAddresses[i].id%></td>
+					<td><%= dataAddresses[i].name%></td>
 					<td><%= dataAddresses[i].street%></td>
 					<td><%= dataAddresses[i].city%></td>
 					<td><%= dataAddresses[i].zipcode%></td>
@@ -34,13 +36,20 @@
 			</tbody>
 		</table><br /><hr />
 		<form name="inputAddresses" action="/addresses" method="post">
+			<label class="label">Contacts Name</label><br />
+			<select class="input" name="contactsID" required>
+				<option value"">Choose Contact</option>
+				<% for (let i = 0; i < dataContacts.length; i++) {%>
+				<option value="<%=dataContacts[i].id%>"><%=dataContacts[i].name%></option>
+				<%}%>
+			</select><br />
 			<label class="label">Street</label><br />
-			<input class="input" type="text" name="street" /><br />
+			<input class="input" type="text" name="street" required /><br />
 			<label class="label">City</label><br />
-			<input class="input" type="text" name="city" /><br />
+			<input class="input" type="text" name="city" required /><br />
 			<label class="label">Zip Code</label><br />
 			<input class="input" type="number" name="zipcode" /><br />
 			<input type="submit" value="Submit" />
-		</form>		
+		</form>
 	</body>
 </html>

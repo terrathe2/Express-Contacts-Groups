@@ -132,20 +132,25 @@ app.post("/groups/edit/:id", (req, res)=>{
 // ----------------------------------------------------addresses.ejs----------------------------------------//
 
 app.get("/addresses", (req, res)=>{
-	db.all(`SELECT * from Addresses`, (err, rows)=>{
-		res.render("addresses", {dataAddresses: rows});
+	db.all(`SELECT a.id, c.name, a.street, a.city, a.zipcode from Addresses a JOIN Contacts c ON a.idContact = c.id`, (err, rows)=>{
+		db.all(`SELECT * FROM Contacts`, (err, contactName)=>{
+				res.render("addresses", {dataAddresses: rows, dataContacts: contactName});
+		});
 	});
 });
 
 app.post("/addresses", (req, res)=>{
-	db.run(`INSERT INTO Addresses ("street", "city", "zipcode") values ("${req.body.street}","${req.body.city}","${req.body.zipcode}")`, ()=>{
+	db.run(`INSERT INTO Addresses ("idContact", "street", "city", "zipcode") values ("${req.body.contactsID}", "${req.body.street}","${req.body.city}","${req.body.zipcode}")`, ()=>{
 		res.redirect("/addresses");
 	});
 });
 
 app.get("/addresses/edit/:id", (req, res)=>{
 	db.get(`SELECT * FROM Addresses where id = "${req.params.id}"`, (err, data)=>{
-		res.render("editAddresses", {dataAddres: data});
+		db.all(`SELECT * FROM Contacts`, (err, contacts)=>{
+			console.log(data);
+			res.render("editAddresses", {dataAddres: data, dataContact: contacts});
+		})
 	});
 });
 
@@ -158,8 +163,18 @@ app.get("/addresses/delete/:id", (req, res)=>{
 // ----------------------------------------------------editAddress.ejs-------------------------------------//
 
 app.post("/addresses/edit/:id", (req, res)=>{
-	db.run(`UPDATE Addresses set street='${req.body.street}', city='${req.body.city}', zipcode='${req.body.zipcode}' where id ='${req.params.id}'`, ()=>{
+	db.run(`UPDATE Addresses set idContact='${req.body.contactsID}', street='${req.body.street}', city='${req.body.city}', zipcode='${req.body.zipcode}' where id ='${req.params.id}'`, ()=>{
 		res.redirect("/addresses");
+	});
+});
+
+// ---------------------------------------------------addresseswithcontact.js-----------------------------//
+
+app.get("/addresses_with_contact/:id", (req, res)=>{
+	db.get(`SELECT * from Contacts where id = '${req.params.id}'`, (err, rows)=>{
+		db.all(`SELECT * from Addresses where idContact = '${req.params.id}'`, (err, rowsAddress)=>{
+			res.render("addressesandcontacts", {dataAddCont: rows, dataAdd: rowsAddress});
+		})
 	});
 });
 

@@ -30,7 +30,7 @@
 					<td><%= dataContacts[i].company%></td>
 					<td><%= dataContacts[i].telp_number%></td>
 					<td><%= dataContacts[i].email%></td>
-					<td><a href="/contacts/edit/<%= dataContacts[i].id%>">Edit</a> | <a href="/contacts/delete/<%= dataContacts[i].id%>">Delete</a></td>
+					<td><a href="/contacts/edit/<%= dataContacts[i].id%>">Edit</a> | <a href="/contacts/delete/<%= dataContacts[i].id%>">Delete</a> | <a href="/addresses_with_contact/<%= dataContacts[i].id%>">View Address</td>
 				</tr>
 				<%}%>
 			</tbody>

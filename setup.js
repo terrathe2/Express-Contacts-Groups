@@ -41,4 +41,12 @@ db.serialize(()=>{
 			console.log("Berhasil Add Unique");
 		}
 	});
+
+	db.run("ALTER TABLE Addresses ADD COLUMN idContact INTEGER REFERENCES Contacts(id)", (err) => {
+		if (err) {
+			console.log(err);
+		} else {
+			console.log("Berhasil Add Column idContact");
+		}
+	})
 });
