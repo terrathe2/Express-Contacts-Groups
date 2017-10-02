@@ -16,15 +16,17 @@
 				<tr>
 					<td>ID</td>
 					<td>Name of Groups</td>
+					<td>List Contacts</td>
 					<td>Actions</td>
 				</tr>
 			</thead>
 			<tbody>
-				<% for (let i = 0; i < dataGroups.length; i++){%>
+				<% for (let i = 0; i < dataContacts.length; i++){%>
 				<tr>
-					<td><%= dataGroups[i].id%></td>
-					<td><%= dataGroups[i].name_of_group%></td>
-					<td><a href="/groups/edit/<%= dataGroups[i].id%>">Edit</a> | <a href="/groups/delete/<%= dataGroups[i].id%>">Delete</a></td>
+					<td><%= dataContacts[i].id%></td>
+					<td><%= dataContacts[i].name_of_group%></td>
+					<td><%= dataContacts[i].name%></td>
+					<td><a href="/groups/edit/<%= dataContacts[i].id%>">Edit</a> | <a href="/groups/delete/<%= dataContacts[i].id%>">Delete</a> | <a href="/assignContact/<%= dataContacts[i].id%>">Assign Contacts</a></td>
 				</tr>
 				<%}%>
 			</tbody>
@@ -33,6 +35,6 @@
 			<label class="label">Name of Groups</label><br />
 			<input class="input" type="text" name="name_of_group" /><br />
 			<input type="submit" value="Submit" />
-		</form>		
+		</form>
 	</body>
 </html>

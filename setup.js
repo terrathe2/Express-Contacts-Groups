@@ -34,19 +34,35 @@ db.serialize(()=>{
 		}
 	});
 
-	db.run("CREATE UNIQUE INDEX u_idContact on Profiles(idContact)", (err)=>{
+	db.run("CREATE TABLE IF NOT EXISTS ContactsGroups(id INTEGER PRIMARY KEY AUTOINCREMENT, idContact INTEGER, idGroup INTEGER)", (err) => {
 		if (err) {
 			console.log(err);
 		} else {
-			console.log("Berhasil Add Unique");
-		}
-	});
-
-	db.run("ALTER TABLE Addresses ADD COLUMN idContact INTEGER REFERENCES Contacts(id)", (err) => {
-		if (err) {
-			console.log(err);
-		} else {
-			console.log("Berhasil Add Column idContact");
+			console.log("Berhasil buat table many to many");
 		}
 	})
+
+	// db.run("CREATE UNIQUE INDEX u_idContact on Profiles(idContact)", (err)=>{
+	// 	if (err) {
+	// 		console.log(err);
+	// 	} else {
+	// 		console.log("Berhasil Add Unique");
+	// 	}
+	// });
+
+	// db.run("ALTER TABLE Addresses ADD COLUMN idContact INTEGER REFERENCES Contacts(id)", (err) => {
+	// 	if (err) {
+	// 		console.log(err);
+	// 	} else {
+	// 		console.log("Berhasil Add Column idContact");
+	// 	}
+	// })
+
+	// db.run("CREATE UNIQUE INDEX u_idContactidGroup on ContactsGroups(idContact, idGroup)", (err) => {
+	// 	if (err) {
+	// 		console.log(err);
+	// 	} else {
+	// 		console.log("Berhasil Add Unique");
+	// 	}
+	// })
 });

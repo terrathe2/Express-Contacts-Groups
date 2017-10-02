@@ -19,6 +19,7 @@
 					<td>Company</td>
 					<td>Telp Number</td>
 					<td>Email</td>
+					<td>Groups</td>
 					<td>Action</td>
 				</tr>
 			</thead>
@@ -30,12 +31,20 @@
 					<td><%= dataContacts[i].company%></td>
 					<td><%= dataContacts[i].telp_number%></td>
 					<td><%= dataContacts[i].email%></td>
+					<td><%= dataContacts[i].name_of_group%></td>
 					<td><a href="/contacts/edit/<%= dataContacts[i].id%>">Edit</a> | <a href="/contacts/delete/<%= dataContacts[i].id%>">Delete</a> | <a href="/addresses_with_contact/<%= dataContacts[i].id%>">View Address</td>
 				</tr>
 				<%}%>
 			</tbody>
 		</table><br /><hr />
 		<form name="inputContact" action="/contacts" method="post">
+			<label class="label">Group</label><br />
+			<select class="input" name="groupID" required>
+				<option value"">Choose Groups</option>
+				<% for (let i = 0; i < dataGroups.length; i++) {%>
+				<option value="<%=dataGroups[i].id%>"><%=dataGroups[i].name_of_group%></option>
+				<%}%>
+			</select><br />
 			<label class="label">Name</label><br />
 			<input class="input" type="text" name="name" required /><br />
 			<label class="label">Company</label><br />
