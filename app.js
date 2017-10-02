@@ -116,8 +116,16 @@ app.get("/groups", (req, res)=>{
 				i--;
 			}
 		}
-		console.log(groups);
-		db.all(`SELECT * from Groups`, (err, rows)=>{
+		db.all(`SELECT * from Groups order by name_of_group`, (err, rows)=>{
+			for (let i = 0; i < rows.length; i++) {
+				for (let j = 0; j < groups.length; j++) {
+					if (rows[i].name_of_group == groups[j].name_of_group) {
+						rows.splice(i, 1);
+						i--;
+						break;
+					}
+				}
+			}
 			res.render("groups", {dataGroups: rows, dataContacts: groups});
 		});
 	});
@@ -137,7 +145,9 @@ app.get("/groups/edit/:id", (req, res)=>{
 
 app.get("/groups/delete/:id", (req, res)=>{
 	db.run(`DELETE from Groups where id = "${req.params.id}"`, ()=>{
-		res.redirect("/groups");
+		db.run(`DELETE from ContactsGroups where idGroup = "${req.params.id}"`, ()=>{
+				res.redirect("/groups");
+		})
 	})
 });
 

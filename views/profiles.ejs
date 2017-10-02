@@ -43,7 +43,7 @@
 			<select class="input" name="idContact" required >
 				<option value="">Select Contact ID</option>
 				<% for (let i = 0; i < dataContacts.length; i++) {%>
-				<option value="<%= dataContacts[i].id%>"><%= dataContacts[i].name%></option>
+				<option value="<%= dataContacts[i].id%>"><%= dataContacts[i].id%> <%= dataContacts[i].name%></option>
 				<%}%>
 			</select><br />
 			<label class="label">Username</label><br />
