@@ -17,16 +17,32 @@ app.get("/", function(req, res) {
 
 // --------------------------------------------------contacts.ejs---------------------------------------//
 app.get("/contacts", (req, res)=>{
-	db.all("SELECT c.id, c.name, c.company, c.telp_number, c.email, g.name_of_group FROM Contacts c JOIN ContactsGroups cg ON c.id = cg.idContact JOIN Groups g ON g.id = cg.idGroup order by c.name", (err, rows)=>{
-		for (let i = 0; i < rows.length-1; i++){
-			if (rows[i].name == rows[i+1].name) {
-				rows[i+1].name_of_group += ", "+rows[i].name_of_group;
-				rows.splice(i,1);
-				i--;
-			}
-		}
-		db.all("SELECT * FROM Groups", (err, rowsGroup)=>{
-				res.render("contacts", {dataContacts: rows, dataGroups: rowsGroup});
+	db.all("SELECT * from Contacts", (err, rowsContact)=>{
+		db.all("SELECT * from ContactsGroups", (err, rowsContactGroup) =>{
+			db.all("SELECT * FROM Groups", (err, rowsGroup)=>{
+				for (let i = 0; i < rowsContact.length; i++){
+					let arrGroups = [];
+					for (let j = 0; j < rowsContactGroup.length; j++) {
+						if (rowsContact[i].id === rowsContactGroup[j].idContact) {
+							arrGroups.push(rowsContactGroup[j].idGroup);
+						}
+					}
+					rowsContact[i].groupId = arrGroups;
+				}
+
+				rowsContact.forEach((contact, index) => {
+					contact.groupName = [];
+					contact.groupId.forEach((id) => {
+						rowsGroup.forEach((group) => {
+							if (id == group.id) {
+								contact.groupName.push(group.name_of_group);
+							}
+						});
+					});
+				});
+				res.render("contacts", {dataContacts: rowsContact, dataGroups: rowsGroup});
+			});
+				//
 		});
 	});
 });
@@ -108,25 +124,30 @@ app.post("/profiles/edit/:id", (req, res)=>{
 // --------------------------------------------------groups.ejs----------------------------------------------//
 
 app.get("/groups", (req, res)=>{
-	db.all("SELECT g.id, g.name_of_group, c.name FROM Groups g JOIN ContactsGroups cg ON g.id = cg.idGroup JOIN Contacts c ON c.id = cg.idContact order by g.name_of_group", (err, groups)=>{
-		for (let i = 0; i < groups.length-1; i++){
-			if (groups[i].name_of_group == groups[i+1].name_of_group) {
-				groups[i+1].name += ", "+groups[i].name;
-				groups.splice(i,1);
-				i--;
-			}
-		}
-		db.all(`SELECT * from Groups order by name_of_group`, (err, rows)=>{
-			for (let i = 0; i < rows.length; i++) {
-				for (let j = 0; j < groups.length; j++) {
-					if (rows[i].name_of_group == groups[j].name_of_group) {
-						rows.splice(i, 1);
-						i--;
-						break;
+	db.all("SELECT * from Groups", (err, rowsGroup) => {
+		db.all("SELECT * from ContactsGroups", (err, rowsContactGroup) => {
+			db.all("SELECT * from Contacts", (err, rowsContact) => {
+				for (let i = 0; i < rowsGroup.length; i++){
+					rowsGroup[i].contactId = [];
+					for (let j = 0; j < rowsContactGroup.length; j++) {
+						if (rowsGroup[i].id === rowsContactGroup[j].idGroup) {
+							rowsGroup[i].contactId.push(rowsContactGroup[j].idContact);
+						}
 					}
 				}
-			}
-			res.render("groups", {dataGroups: rows, dataContacts: groups});
+
+				rowsGroup.forEach((group) => {
+					group.contactName = [];
+					group.contactId.forEach((id) => {
+						rowsContact.forEach((contact) => {
+							if (id === contact.id) {
+								group.contactName.push(contact.name);
+							}
+						});
+					});
+				});
+				res.render("groups", {dataGroups: rowsGroup});
+			});
 		});
 	});
 });
@@ -145,9 +166,7 @@ app.get("/groups/edit/:id", (req, res)=>{
 
 app.get("/groups/delete/:id", (req, res)=>{
 	db.run(`DELETE from Groups where id = "${req.params.id}"`, ()=>{
-		db.run(`DELETE from ContactsGroups where idGroup = "${req.params.id}"`, ()=>{
-				res.redirect("/groups");
-		})
+		res.redirect("/groups");
 	})
 });
 
@@ -214,24 +233,14 @@ app.get("/addresses_with_contact/:id", (req, res)=>{
 app.get("/assignContact/:id", (req, res)=>{
 	db.get(`SELECT * from Groups where id = "${req.params.id}"`, (err, idGroup)=>{
 		db.all("SELECT * from Contacts order by name", (err, rowsContact)=>{
-			for (let i = 0; i < rowsContact.length-1; i++) {
-				if (rowsContact[i].name == rowsContact[i+1].name) {
-					rowsContact.splice(i, 1);
-					i--;
-				}
-			}
-			res.render("assignContact", {dataGroup:idGroup, dataAssign: rowsContact});
+			res.render("assignContact", {dataGroup: idGroup, dataAssign: rowsContact});
 		});
 	});
 });
 
 app.post("/assignContact/:id", (req, res)=>{
-	db.get(`SELECT * from Contacts where id = "${req.body.contactName}"`, (err, contactId)=>{
-		db.run(`INSERT INTO Contacts ("name", "company", "telp_number", "email") values ("${contactId.name}","${contactId.company}","${contactId.telp_number}","${contactId.email}")`,function (err){
-			db.run(`INSERT INTO ContactsGroups ("idContact", "idGroup") values ('${this.lastID}', "${req.params.id}")`,()=>{
-				res.redirect("/groups");
-			});
-		});
+	db.run(`INSERT INTO ContactsGroups ("idContact", "idGroup") values ('${req.body.contactid}', "${req.params.id}")`,()=>{
+		res.redirect("/groups");
 	});
 });
 

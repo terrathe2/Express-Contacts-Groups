@@ -1,7 +1,7 @@
 <h3>Group Name : <br/><%= dataGroup.name_of_group%></h3>
 <form name="assignContact" action="/assignContact/<%= dataGroup.id%>" method="post">
   <label>Contact Name</label><br />
-  <select class="label" name="contactName">
+  <select class="label" name="contactid" required>
     <option value="">Select Contact Name</option>
     <% for (let i = 0; i < dataAssign.length; i++) {%>
     <option value="<%= dataAssign[i].id%>"><%= dataAssign[i].name%></option>
