@@ -31,7 +31,7 @@
 					<td><%= dataContacts[i].company%></td>
 					<td><%= dataContacts[i].telp_number%></td>
 					<td><%= dataContacts[i].email%></td>
-					<td><%= dataContacts[i].name_of_group%></td>
+					<td><%= dataContacts[i].groupName.join(", ")%></td>
 					<td><a href="/contacts/edit/<%= dataContacts[i].id%>">Edit</a> | <a href="/contacts/delete/<%= dataContacts[i].id%>">Delete</a> | <a href="/addresses_with_contact/<%= dataContacts[i].id%>">View Address</td>
 				</tr>
 				<%}%>

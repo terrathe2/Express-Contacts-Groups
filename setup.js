@@ -34,7 +34,7 @@ db.serialize(()=>{
 		}
 	});
 
-	db.run("CREATE TABLE IF NOT EXISTS ContactsGroups(id INTEGER PRIMARY KEY AUTOINCREMENT, idContact INTEGER, idGroup INTEGER)", (err) => {
+	db.run("CREATE TABLE IF NOT EXISTS ContactsGroups(id INTEGER PRIMARY KEY AUTOINCREMENT, idContact INTEGER REFERENCES Contacts(id) ON DELETE CASCADE, idGroup INTEGER REFERENCES Groups(id) ON DELETE CASCADE)", (err) => {
 		if (err) {
 			console.log(err);
 		} else {
@@ -49,20 +49,12 @@ db.serialize(()=>{
 	// 		console.log("Berhasil Add Unique");
 	// 	}
 	// });
-
+	//
 	// db.run("ALTER TABLE Addresses ADD COLUMN idContact INTEGER REFERENCES Contacts(id)", (err) => {
 	// 	if (err) {
 	// 		console.log(err);
 	// 	} else {
 	// 		console.log("Berhasil Add Column idContact");
-	// 	}
-	// })
-
-	// db.run("CREATE UNIQUE INDEX u_idContactidGroup on ContactsGroups(idContact, idGroup)", (err) => {
-	// 	if (err) {
-	// 		console.log(err);
-	// 	} else {
-	// 		console.log("Berhasil Add Unique");
 	// 	}
 	// })
 });

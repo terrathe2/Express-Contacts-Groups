@@ -12,8 +12,8 @@
 	<body>
 		<h3>Name : <%= dataAddCont.name %></h3><hr />
 		<h3>Address : </h3>
-		<% for (let i = 0; i < dataAdd.length; i++) { %>
-		<h4><%= dataAdd[i].street%></h4>
+		<% for (let i = 0; i < dataAddCont.street.length; i++) { %>
+		<h4><%= dataAddCont.street[i]%></h4>
 		<% } %>
 		<hr />
 		<form name="inputAddresses" action="/addresses" method="post">
