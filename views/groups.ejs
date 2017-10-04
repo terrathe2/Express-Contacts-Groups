@@ -21,19 +21,11 @@
 				</tr>
 			</thead>
 			<tbody>
-				<% for (let i = 0; i < dataContacts.length; i++){%>
-				<tr>
-					<td><%= dataContacts[i].id%></td>
-					<td><%= dataContacts[i].name_of_group%></td>
-					<td><%= dataContacts[i].name%></td>
-					<td><a href="/groups/edit/<%= dataContacts[i].id%>">Edit</a> | <a href="/groups/delete/<%= dataContacts[i].id%>">Delete</a> | <a href="/assignContact/<%= dataContacts[i].id%>">Assign Contacts</a></td>
-				</tr>
-				<%}%>
 				<% for (let i = 0; i < dataGroups.length; i++){%>
 				<tr>
 					<td><%= dataGroups[i].id%></td>
 					<td><%= dataGroups[i].name_of_group%></td>
-					<td><%= dataGroups[i].name%></td>
+					<td><%= dataGroups[i].contactName.join(", ")%></td>
 					<td><a href="/groups/edit/<%= dataGroups[i].id%>">Edit</a> | <a href="/groups/delete/<%= dataGroups[i].id%>">Delete</a> | <a href="/assignContact/<%= dataGroups[i].id%>">Assign Contacts</a></td>
 				</tr>
 				<%}%>
